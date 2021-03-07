@@ -1,6 +1,6 @@
-## VSME - Verified by Subject-Matter Experts
+# VSME - Verified by Subject-Matter Experts
 
-# Getting Started
+## Getting Started
 
 First, run the development server:
 
