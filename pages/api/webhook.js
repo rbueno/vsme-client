@@ -1,6 +1,30 @@
+import Cors from 'cors'
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-export default function handler(req, res) {
+function initMiddleware(middleware) {
+  return (req, res) =>
+    new Promise((resolve, reject) => {
+      middleware(req, res, (result) => {
+        if (result instanceof Error) {
+          return reject(result);
+        }
+        return resolve(result);
+      });
+    });
+}
+
+const cors = initMiddleware(
+  Cors({
+    origin: function(origin, callback) {
+      console.log('cors origin é: ', origin)
+      return callback(null, true)
+    }
+  })
+ );
+
+export default async function handler(req, res) {
+  await cors(req, res);
+
   if (req.method === 'POST') {
     console.log('======================================')
     console.log('req.body', req.body)
